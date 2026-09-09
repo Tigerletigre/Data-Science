@@ -27,9 +27,10 @@ def mot_avec_plus_de_a(texte:str) -> str:
     mots = texte.split()
     plus_a = mots[0]
     for mot in mots:
-        if mot.lower().count('a') >= plus_a:
-            
-            
+        if mot.lower().count('a') > plus_a.lower().count('a'):
+            plus_a = mot
+    return plus_a
+print(mot_avec_plus_de_a("Anaconda avale une banane"))            
             
             
 
@@ -79,4 +80,26 @@ Point1 = Point(3,5)
 
 
 #NON Segment accède directement aux attributs de point,Segment est un  utlisateur de Point
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
