@@ -9,11 +9,11 @@ import math
 class CarnetNote:
     #_attribut_classe:float=[]
     def __init__(self, nom : str) -> None:
-        self.nom:str = nom
+        self._nom:str = nom
         self.notes:float = []
     
     def nom(self) -> str:
-        return self.nom
+        return self._nom
     
     def ajouter_note(self,notes):
         if notes < 0 or notes > 20 :
@@ -29,28 +29,24 @@ class CarnetNote:
         return sum(self.notes)/len(self.notes)
     
     def mention(self):
+        
         if len(self.notes) < 5 :
             raise ValueError("Il n'y a pas assez de notes pour avoir une mention")
+        m=self.moyenne()
+        if m >= 16 and m < 18:
+            return("Tu as la mention trés bien")
         
-        elif CarnetNote.moyenne :
-        elif
-        elif
-        elif
-        elif
-        
-        return 
+      
         
             
+a=CarnetNote('Louis')
 
+a.ajouter_note(14)
+a.ajouter_note(16)
+a.ajouter_note(20)
+a.ajouter_note(16)
+a.ajouter_note(16)
 
-
-
-
-c=CarnetNote('Louis')
-c.ajouter_note(-1)
-c.ajouter_note(24)
-c.ajouter_note(14)
-print(c.moyenne())
-c.ajouter_note(16)
-c.ajouter_note(20)
-print(c.moyenne())
+print(a.moyenne())  #16.4
+print(a.notes)
+print(a.mention())
