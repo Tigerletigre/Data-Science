@@ -158,11 +158,10 @@ class Banque:
 Bq = Banque()
 Bq.ajouter_compte('Louis') 
 Bq.ajouter_compte('Pa')    
-Bq.get_compte('Louis')
+Bq.get_compte('Louis').deposer(100)
 Bq.get_compte('Pa')
-a.deposer(100)
 Bq.transferer('Louis','Pa',5)
-print(a.solde)
+
 
 #partie 3
 
