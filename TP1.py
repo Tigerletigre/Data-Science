@@ -178,6 +178,9 @@ class CompteSecurise:
     
     def deposer(self,montant:int)->None:
         self._comptes.deposer(montant)
+
+#partie 4
+
     
     
         
