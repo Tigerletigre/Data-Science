@@ -172,6 +172,6 @@ class Discipline:
         self._capacite:int = int
         self._creneaux:list= []
         
-    def ajouter_creneau(self,jour:str,heure_debut:int,heure_fin:int)->None:
+6    def ajouter_creneau(self,jour:str,heure_debut:int,heure_fin:int)->None:
         
 
