@@ -93,4 +93,13 @@ def nbpassages(x,N,p):
 
 nbpassages(0,10000,11/20)    
 #mouvement bronien theorie processus stochastique
+
+#4
+def proba(N):
+    q=0
+    for i in range 
+        nbpassages(0,N,1/2)
+    
+    
+
     
