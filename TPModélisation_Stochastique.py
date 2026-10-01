@@ -99,7 +99,70 @@ def proba(N):
     q=0
     for i in range 
         nbpassages(0,N,1/2)
+        
+        
+#exo3    
+#Q1)
+def trajectoire_ruine(N,x,p):
+    Traj =[x]
+    while x != 0 and x != N :   #and pour que la boucle serret apres 1 des 2 variable soiit verifié
+        if npr.rand()< p :
+            x=x+1
+            Traj.append(x)
+            
+        else :
+            x=x-1
+            Traj.append(x)
+    return Traj
+
+trajectoire_ruine(10,5,1/2)
+#Q2)
+
+for i in range(3):
+    v = trajectoire_ruine(40,20,48/100)
+    n=len(v)
+    plt.step(np.arange(n),v)
+plt.title('Trajectoire de ruine)')
+
+#Q3
+
+def approximation(n,N,x,p):
+    a=0
+    for i in range(n):
+        v = trajectoire_ruine(N,x,p)
+        if v[-1] == N:
+            a += 1
+    return a/n
+approximation(1000,100,50,1/2) 
+
+def estimtemps(x,p,N,n):
+    stock=[]
+    for i in range(n):
+        z=x
+        compt=0
+        while z!=0 and z!=N:
+            z+= 2*(npr.rand()<p)-1
+            compt+=1
+        stock.append(compt)
+    tempsmoyen=float(np.mean(stock))
+    return tempsmoyen
+estimtemps(5,1/2,10,100000)
+   
+    
     
     
 
     
+
+
+
+
+
+
+
+
+
+
+
+
+
