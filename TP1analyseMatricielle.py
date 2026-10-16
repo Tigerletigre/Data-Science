@@ -52,35 +52,93 @@ def Gauss1(A):
 A=np.array([[2.,1.,1.,1.],[1.,2.,1.,1.],[1.,1.,2.,1.],[1.,1.,1.,2.]])
 Gauss1(A)
 
+
+
+
 def Gauss1bis(A):
     (n,m)=np.shape(A)
-    T=np.copy(A)  #A.copy
-    for k in range(0,n-1): #1 a n-1
-        pivot = T[k,k]
-        for i in range(k+1,n): #k+1 a n
-            coef = -T[i,k]/pivot
-            T[i,k] = coef
-            T[i,k+1:m] = T[i,k+1:m] + coef*T[k,k+1:m]
+    T=np.copy(A) # pour ne pas modifier A
+    for k in range(0,n-1):
+        pivot=T[k,k] 
+        for i in range(k+1,n):
+            coef=-T[i,k]/pivot
+            T[i,k]=coef
+            T[i,k+1:m]=T[i,k+1:m]+coef*T[k,k+1:m]
+            
     return T
-A=np.array([[2.,1.,1.,1.],[1.,2.,1.,1.],[1.,1.,2.,1.],[1.,1.,1.,2.]])
+
+A=np.array(([2.,1.,1.],[1.,2.,1.],[1.,1.,2]))
 Gauss1bis(A)
 
-#2
 
-def Gauss2(A,b):
-    (n,m)=np.shape(A) 
-    B=np.concatenate((A, b), axis=0) # la meme chose B=np.hstack((A,b))
-    B=Gauss1bis(B) 
-    bprime=B[:,n]; # extraction du b transforme bprime derniere colonne
-    U=np.triu(B[:,0:n]); # extraction de la matrice carree uper U
-    x=remontee(U,bprime);
-    return (U,x)  
 
-A=np.array([[2,1,1],[1,2,1],[1,1,2]])
-b=np.array([[4],[4],[4]])
-Gauss2(A,b)   
-            
-            
-            
-            
-            
+
+def LU1(A) : # decomposition LU par Gauss (A=LU)
+    (n,m)=np.shape(A)
+    T=Gauss1bis(A) #le Gauss où on a stocké les m_i,k
+    U=np.triu(T) #on extrait la partie triangulaire sup
+    L=U-T+np.eye(n) 
+    return [L,U] 
+A=np.array([[2.,1.,1.,1.],[1.,2.,1.,1.],[1.,1.,2.,1.],[1.,1.,1.,2.]])
+LU1(A)
+#np.dot(LU1(A)[0],LU1(A)[1])
+
+L,U=LU1(A);print(L);print(U)
+print(np.dot(L,U))     
+# A=np.array([[2,1,1],[1,2,1],[1,1,2]],dtype=float)     
+A=np.array([[2.,1.,0.,0.,0.,0],
+            [1.,2.,1.,0.,0.,0],
+            [0.,1.,2.,1.,0.,0],
+            [0.,0.,1.,2.,1.,0],
+            [0.,0.,0.,1.,2.,1],
+            [0.,0.,0.,0.,1.,2]])
+
+LU1(A)
+L,U=LU1(A);print(L);print(U)
+print(np.dot(L,U))                
+
+def tridiag(n,d,a):
+    aa=np.ones(n-1)#matrice unidimentionnelle de 1
+    A=d*np.eye(n)+a*np.diag(aa,-1)+a*np.diag(aa,1)
+    return A
+
+def tridiagbis(n,d,a):
+    A=np.zeros((n,n))
+    for i in range(0,n):
+        for j in range(0,n):
+            if i==j:
+                A[i,j]=d
+            else :
+                if (abs(i-j)==1):
+                    A[i,j]=a               
+    return A
+
+
+#def LU2(A):
+ #   n,m = np.shape(A)
+  #  L=np.eye(n)
+   # U=np.eye(n)
+    #for j in range (1,n):
+     #   for k in range (j,n):
+      #      U[j,k]=A[j,k] - np.dot(L[j,0:j],U[0:j,k])
+       # for k in range(j+1,n):
+        #    L[k,j]= (A[k,j] - np.dot(L[k,0:j],U[0:j,j]))/U[j,j]
+    #return L,U
+    
+
+LU2(tridiagbis(6,2,1))
+L,U=LU1(A);print(L);print(U)
+print(np.dot(L,U))  
+
+
+P,L,U =lg.lu(A)
+
+
+
+    
+A=np.array([[2.,1.,1.],[1.,2.,1.],[1.,1.,2.]]);print(A)
+b=np.ones([3,1]);print(b)
+L,U=LU1(A)
+y=descente(L,b)# resolution de Ly=b
+x=remontee(U,y)# resolution de Ux=y
+np.allclose(np.dot(A,x),b)
